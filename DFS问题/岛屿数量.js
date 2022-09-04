@@ -26,31 +26,34 @@
     链接：https://leetcode-cn.com/problems/number-of-islands
     著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
-let numIslands = function (grid) {
-    let count = 0
-    for (let i = 0; i < grid.length; i++) {
-        let row = grid[i]
-        for (let j = 0; j < row.length; j++) {
-            if (row[j] === '1') {
-                dfs(grid, i, j)
-                count++
-            }
-        }
+const numIslands = function (grid) {
+  let res = 0
+  const m = grid.length
+  const n = grid[0].length
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      if (grid[i][j] === '1') {
+        res++
+        dfs(grid, i, j)
+      }
     }
-    return count
-};
+  }
+  return res
+}
 
+// 从 (i, j) 开始，将与之相邻的 1 都变成 0
 function dfs(grid, i, j) {
-    let point = grid[i] && grid[i][j]
-    if (point === '0' || point === undefined) {
-        return
-    }
-    grid[i][j] = '0'
-
-    dfs(grid, i - 1, j) // 上
-    dfs(grid, i + 1, j) // 下
-    dfs(grid, i, j - 1) // 左
-    dfs(grid, i, j + 1) // 右
+  const m = grid.length
+  const n = grid[0].length
+  if (i < 0 || j < 0 || i >= m || j >= n)
+    return
+  if (grid[i][j] === '0')
+    return
+  grid[i][j] = '0'
+  dfs(grid, i - 1, j) // 上
+  dfs(grid, i + 1, j) // 下
+  dfs(grid, i, j - 1) // 左
+  dfs(grid, i, j + 1) // 右
 }
 
 /**
