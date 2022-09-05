@@ -3,59 +3,23 @@
  * @param {number[][]} grid
  * @return {number}
  */
-let islandPerimeter = function (grid) {
-  let yLen = grid.length;
-  if (!yLen) return 0;
-  let xLen = grid[0].length;
-
-  let perimeter = { value: 0 };
-
-  for (let y = 0; y < yLen; y++) {
-    for (let x = 0; x < xLen; x++) {
-      if (grid[y][x] === 1) {
-        dfs(grid, y, x, perimeter);
-        break;
+const islandPerimeter = function (grid) {
+  if (grid.length === 0)
+    return 0
+  let res = 0
+  const m = grid.length; const n = grid[0].length
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      if (grid[i][j] === 1) {
+        res += 4
+        if (i > 0 && grid[i - 1][j] === 1)
+          res -= 2
+        if (j > 0 && grid[i][j - 1] === 1)
+          res -= 2
       }
     }
   }
-
-  return perimeter.value;
-};
-
-function dfs(grid, y, x, perimeter) {
-  let cell = grid[y][x];
-  if (cell === "COMPLETE") return;
-
-  grid[y][x] = "COMPLETE";
-
-  let below = grid[y - 1] && grid[y - 1][x];
-  let upper = grid[y + 1] && grid[y + 1][x];
-  let left = grid[y][x - 1];
-  let right = grid[y][x + 1];
-
-  if (below) {
-    dfs(grid, y - 1, x, perimeter);
-  } else {
-    perimeter.value++;
-  }
-
-  if (upper) {
-    dfs(grid, y + 1, x, perimeter);
-  } else {
-    perimeter.value++;
-  }
-
-  if (left) {
-    dfs(grid, y, x - 1, perimeter);
-  } else {
-    perimeter.value++;
-  }
-
-  if (right) {
-    dfs(grid, y, x + 1, perimeter);
-  } else {
-    perimeter.value++;
-  }
+  return res
 }
 
 console.log(
@@ -64,5 +28,5 @@ console.log(
     [1, 1, 1, 0],
     [0, 1, 0, 0],
     [1, 1, 0, 0],
-  ])
-);
+  ]),
+)
