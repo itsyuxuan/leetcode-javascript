@@ -2,31 +2,19 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
-let subsets = function (nums) {
-  let res = []
-  let n = nums.length
-  if (n === 0) {
-    return res
-  }
-
-  let helper = (start, prev, targetLength) => {
-    if (start > n) {
-      return
-    }
-    if (prev.length === targetLength) {
-      res.push(prev)
-      return
-    }
-
-    for (let i = start; i < n; i++) {
-      let cur = nums[i]
-      helper(i + 1, prev.concat(cur), targetLength)
+const subsets = function (nums) {
+  const res = []
+  const path = []
+  const backtracking = (nums, start) => {
+    res.push([...path])
+    for (let i = start; i < nums.length; i++) {
+      path.push(nums[i])
+      backtracking(nums, i + 1)
+      path.pop()
     }
   }
-
-  for (let j = 1; j <= nums.length; j++) {
-    helper(0, [], j)
-  }
-
-  return [[], ...res]
+  backtracking(nums, 0)
+  return res
 }
+
+console.log(subsets([1, 2, 3]))
