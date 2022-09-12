@@ -4,32 +4,35 @@
  */
 const restoreIpAddresses = function (s) {
   const res = []
-  const backtrack = (start, prev, used) => {
-    if (used === 3) {
-      const rest = s.substring(start)
-      // 点全部用光后 剩余字符依然是一个合格的ip chunk
-      // 就视为一个答案 放入数组
-      if (isValid(rest))
-        res.push(prev.concat(rest).join('.'))
-      return
+  const path = []
+  const backtracking = (s, start) => {
+    if (path.length === 3) {
+      const rest = s.substr(start)
+      if (isValid(rest)) {
+        res.push(path.concat(rest).join('.'))
+        return
+      }
     }
-    for (let i = 1; i <= 3; i++) {
-      const end = start + i
-      const cur = s.substring(start, end)
-      if (isValid(cur))
-        backtrack(end, prev.concat(cur), used + 1)
+    for (let i = start; i < s.length; i++) {
+      const subStr = s.substring(start, i + 1)
+      if (isValid(subStr)) {
+        path.push(subStr)
+        backtracking(s, i + 1)
+        path.pop()
+      }
     }
   }
-  backtrack(0, [], 0)
+  backtracking(s, 0, 1)
   return res
 }
 
-function isValid(str) {
-  const len = str.length
-  if (len === 0)
+const isValid = (str) => {
+  if (str.length === 0)
     return false
-  if (str[0] === '0')
-    return str === '0'
+  if (str[0] === '0' && str !== '0')
+    return false
   const num = Number(str)
-  return num >= 0 && num <= 255
+  if (num < 0 || num > 255)
+    return false
+  return true
 }
