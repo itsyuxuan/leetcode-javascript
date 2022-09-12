@@ -3,49 +3,37 @@
  * @return {string[][]}
  */
 
-let partition = function (s) {
-  let n = s.length
-  let ret = []
-  let find = function (start, prev) {
-    // 最少分割一个字符 最多分割到末尾前一位
-    for (let i = 1; i <= n; i++) {
-      let end = start + i
-      let cur = s.substring(start, end)
-      if (cur) {
-        let res = prev.concat(cur)
-        if (isPalindrome(cur)) {
-          if (end === n) {
-            ret.push(res)
-          } else {
-            find(start + i, res)
-          }
-        }
+const partition = function (s) {
+  const res = []
+  const path = []
+  const backtracking = (s, start) => {
+    if (start >= s.length) {
+      res.push([...path])
+      return
+    }
+    for (let i = start; i < s.length; i++) {
+      const subStr = s.substr(start, i - start + 1)
+      if (isPalindrome(subStr)) {
+        path.push(subStr)
+        backtracking(s, i + 1)
+        path.pop()
       }
     }
   }
-  find(0, [])
-  return ret
+  backtracking(s, 0)
+  return res
 }
 
-function isPalindrome(s) {
-  if (!s) {
-    return false
-  }
-  let i = 0
-  let j = s.length - 1
-
-  while (i < j) {
-    let head = s[i]
-    let tail = s[j]
-
-    if (head !== tail) {
+const isPalindrome = (s) => {
+  let l = 0
+  let r = s.length - 1
+  while (l < r) {
+    if (s[l] !== s[r])
       return false
-    } else {
-      i++
-      j--
-    }
+    l++
+    r--
   }
   return true
 }
 
-console.log(partition("aab"))
+console.log(partition('aab'))
