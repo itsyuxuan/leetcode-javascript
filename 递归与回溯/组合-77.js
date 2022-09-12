@@ -3,31 +3,22 @@
  * @param {number} k
  * @return {number[][]}
  */
-let combine = function (n, k) {
-  let ret = []
-
-  let helper = (start, prev) => {
-    let len = prev.length
-    if (len === k) {
-      ret.push(prev)
+const combine = function (n, k) {
+  const res = []
+  const path = []
+  const backtracking = (n, k, start) => {
+    if (path.length === k) {
+      res.push([...path])
       return
     }
-
-    if (start > n) {
-      return
-    }
-
-    // 还有 rest 个位置待填补
-    let rest = k - prev.length
-    for (let i = start; i <= n; i++) {
-      if (n - i + 1 < rest) {
-        continue
-      }
-      helper(i + 1, prev.concat(i))
+    for (let i = start; i <= n - (k - path.length) + 1; i++) {
+      path.push(i)
+      backtracking(n, k, i + 1)
+      path.pop()
     }
   }
-  helper(1, [])
-  return ret
+  backtracking(n, k, 1)
+  return res
 }
 
 console.log(combine(4, 2))
