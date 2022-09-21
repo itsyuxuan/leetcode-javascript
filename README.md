@@ -5,22 +5,7 @@
   </a>
 </p>
 
-> 力扣的题解记录（JavaScript）
-
-## 关于我
-大家好，我是 ssh，现在在字节跳动的 Web Infra 担任前端工程师，微信：**[sshsunlight](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/017d568dc1d14cd883cc3238350a39ec~tplv-k3u1fbpfcp-watermark.image)**，欢迎找我交个朋友。
-
-我会在公众号「前端从进阶到入院」每日更新精心挑选的技术文章（标准就是我自己看了也会有收获），欢迎大家一起成长。
-
-![qrcode_for_gh_d2b31290dd8b_258](https://user-images.githubusercontent.com/23615778/134800856-9a44fa9a-4f1b-4884-a0b6-b58c5f3331df.jpg)
-
-## 调试
-
-提供了 .vscode 配置文件，在 vscode 中选择「小爬虫」图标，点击启动程序，即可启动断点调试。
-
-## 思路
-
-思路会记录在本仓库的 Issues 中，按照 label 进行分类。比如想查看 「DFS」 分类下的问题，那么选择标签进行筛选即可。
+> 嘉然今天刷LeetCode
 
 ## 目录
 
@@ -339,21 +324,3 @@
 
 [二分查找-704](https://github.com/sl1673495/leetcode-javascript/issues/23)
 
-## Author
-
-👤 **ssh**
-
-- Website: https://ssh-blog.now.sh
-- Github: [@sl1673495](https://github.com/sl1673495)
-
-## 🤝 Contributing
-
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/sl1673495/leetcode-javascript/issues).
-
-## Show your support
-
-Give a ⭐️ if this project helped you!
-
----
-
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
