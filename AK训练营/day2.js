@@ -1,3 +1,28 @@
+// LC.977 https://leetcode-cn.com/problems/squares-of-a-sorted-array/
+// 本题数组两端大，中间小，可用双指针从两端向中间靠拢
+const sortedSquares = function (nums) {
+  let i = 0
+  let j = nums.length - 1
+  let p = j
+  const res = []
+  while (i <= j) {
+    const i2 = nums[i] * nums[i]
+    const j2 = nums[j] * nums[j]
+    if (i2 < j2) {
+      res[p] = j2
+      j--
+    }
+    else {
+      res[p] = i2
+      i++
+    }
+    p--
+  }
+  return res
+}
+
+console.log(sortedSquares([-4, -1, 0, 3, 10]))
+
 // LC.35 https://leetcode.cn/problems/search-insert-position/
 const searchInsert = function (nums, target) {
   let left = 0
