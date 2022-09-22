@@ -1,5 +1,8 @@
 // LC.977 https://leetcode-cn.com/problems/squares-of-a-sorted-array/
-// 本题数组两端大，中间小，可用双指针从两端向中间靠拢
+// 本题数组两端大，中间小，可用双指针从两端分别向中间靠拢
+// 每次比较两个指针对应的数，选择较大的那个逆序放入答案并移动指针
+// 时间复杂度：O(n)
+// 空间复杂度：O(1)
 const sortedSquares = function (nums) {
   let i = 0
   let j = nums.length - 1
@@ -22,6 +25,70 @@ const sortedSquares = function (nums) {
 }
 
 console.log(sortedSquares([-4, -1, 0, 3, 10]))
+
+// LC.59 https://leetcode-cn.com/problems/spiral-matrix-ii/
+// 模拟四种方向的移动
+// JS 创建二维数组：new Array(n).fill().map(() => new Array(n).fill())
+// 注意 ++ 和 --
+// 时间复杂度：O(n^2)
+// 空间复杂度：O(1)
+const generateMatrix = function (n) {
+  const res = new Array(n).fill().map(() => new Array(n).fill())
+  let top = 0
+  let bottom = n - 1
+  let left = 0
+  let right = n - 1
+  let el = 1
+  const total = n * n
+  while (el <= total) {
+    // 在顶部从左向右遍历
+    for (let i = left; i <= right; i++) res[top][i] = el++
+    // 上边界下移
+    top++
+
+    // 在右侧从上向下遍历
+    for (let i = top; i <= bottom; i++) res[i][right] = el++
+    // 右边界左移
+    right--
+
+    // 在底部从右向左遍历
+    for (let i = right; i >= left; i--) res[bottom][i] = el++
+    // 下边界上移
+    bottom--
+
+    // 在左侧从下向上遍历
+    for (let i = bottom; i >= top; i--) res[i][left] = el++
+    // 左边界右移
+    left++
+  }
+  return res
+}
+
+console.log(generateMatrix(3))
+
+// LC.209 https://leetcode-cn.com/problems/minimum-size-subarray-sum/
+// 滑动窗口，观测的变量有点多
+// 时间复杂度主要看每一个元素被操作的次数
+// 每个元素最多被操作两次，一次是加入窗口，一次是移出窗口
+// 所以时间复杂度是 2 × n 也就是 O(n)
+// 时间复杂度：O(n)
+// 空间复杂度：O(1)
+const minSubArrayLen = function (target, nums) {
+  let l = 0
+  let r = 0
+  let sum = 0
+  let res = Number.MAX_SAFE_INTEGER
+  while (r < nums.length) {
+    sum += nums[r++]
+    while (sum >= target) {
+      res = Math.min(res, r - l)
+      sum -= nums[l++]
+    }
+  }
+  return res === Number.MAX_SAFE_INTEGER ? 0 : res
+}
+
+console.log(minSubArrayLen(7, [2, 3, 1, 2, 4, 3]))
 
 // LC.35 https://leetcode.cn/problems/search-insert-position/
 const searchInsert = function (nums, target) {
