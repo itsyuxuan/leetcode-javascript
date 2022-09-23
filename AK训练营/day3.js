@@ -4,6 +4,7 @@ class ListNode {
     this.next = null
   }
 }
+let head
 
 // LC.203 https://leetcode-cn.com/problems/remove-linked-list-elements/
 // 虚拟头节点避免了头节点的特殊处理，指针从虚拟头节点开始遍历
@@ -20,7 +21,7 @@ const removeElements = function (head, val) {
   return dummy.next
 }
 
-let head = new ListNode(1)
+head = new ListNode(1)
 head.next = new ListNode(2)
 head.next.next = new ListNode(6)
 head.next.next.next = new ListNode(3)
