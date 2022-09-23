@@ -14,6 +14,8 @@ class LRUCache {
     else { return -1 }
   }
 
+  // 先判断是否存在 key，如不存在再判断是否超过容量（如果刚好存在且容量已满，则不需要扩容了）
+  // 注意 map 值的关键词是 value 不是 val
   put(key, value) {
     if (this.map.has(key))
       this.map.delete(key)
