@@ -31,7 +31,6 @@ head.next.next.next.next.next.next = new ListNode(6)
 console.log(removeElements(head, 6))
 
 // LC.206 https://leetcode-cn.com/problems/reverse-linked-list/
-
 // 方法1. 三指针迭代
 // 在遍历链表时，将当前节点的 next 指针改为指向前一个节点
 // 由于节点没有引用其上一个节点，因此必须事先存储其前一个节点
@@ -83,3 +82,83 @@ head.next.next = new ListNode(3)
 head.next.next.next = new ListNode(4)
 head.next.next.next.next = new ListNode(5)
 console.log(reverseList_recur(head))
+
+// LC.707 https://leetcode-cn.com/problems/design-linked-list/
+// 单向链表法
+// 链表需要一个 dummy 作为虚拟头节点，和一个 size 保留有效节点数
+// 注意 dummy 头节点不动，用 cur 指针遍历链表
+// 注意根据节点的变化更新 size
+// 注意边界条件的判断
+// 时间复杂度：
+// 初始化 O(1)，get O(index)，
+// addAtHead O(1)，addAtTail O(n)，
+// addAtIndex O(index)，deleteAtIndex O(index)
+// 空间复杂度：
+// 所有函数的单次调用空间复杂度均为 O(1)，总体空间复杂度为 O(n)，其中 n 为所有 add 类函数调用次数之和
+class MyLinkedList {
+  constructor() {
+    this.dummy = new ListNode(0)
+    this.size = 0
+  }
+
+  get(index) {
+    if (index < 0 || index >= this.size)
+      return -1
+    let cur = this.dummy
+    while (index-- >= 0) cur = cur.next
+    return cur.val
+  }
+
+  addAtHead(val) {
+    const added = new ListNode(val)
+    const cur = this.dummy
+    added.next = cur.next
+    cur.next = added
+    this.size++
+  }
+
+  addAtTail(val) {
+    let cur = this.dummy
+    while (cur.next) cur = cur.next
+    cur.next = new ListNode(val)
+    this.size++
+  }
+
+  addAtIndex(index, val) {
+    if (index < 0) {
+      this.addAtHead(val)
+    }
+    else if (index === this.size) {
+      this.addAtTail(val)
+    }
+    else if (index <= this.size) {
+      let cur = this.dummy
+      while (index-- > 0) cur = cur.next
+      const added = new ListNode(val)
+      added.next = cur.next
+      cur.next = added
+      this.size++
+    }
+  }
+
+  deleteAtIndex(index) {
+    if (index < 0 || index >= this.size)
+      return
+    let cur = this.dummy
+    while (index-- > 0) cur = cur.next
+    cur.next = cur.next.next
+    this.size--
+  }
+}
+
+const linkedList = new MyLinkedList()
+
+// 链表变为 1 -> 2 -> 3
+linkedList.addAtHead(1)
+linkedList.addAtTail(3)
+linkedList.addAtIndex(1, 2)
+console.log(linkedList.get(1)) // 返回 2
+
+// 现在链表是 1 -> 3
+linkedList.deleteAtIndex(1)
+console.log(linkedList.get(1)) // 返回 3
