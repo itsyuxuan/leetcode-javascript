@@ -77,6 +77,8 @@ const headB = new ListNode(5)
 headB.next = new ListNode(6)
 headB.next.next = new ListNode(1)
 headB.next.next.next = headA.next.next
+headB.next.next.next.next = headA.next.next.next
+headB.next.next.next.next.next = headA.next.next.next.next
 console.log(getIntersectionNode(headA, headB))
 
 // LC.142 https://leetcode-cn.com/problems/linked-list-cycle-ii/
