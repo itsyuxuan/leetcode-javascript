@@ -57,6 +57,7 @@ const invertTree = function (root) {
 // LC.101 https://leetcode-cn.com/problems/symmetric-tree/
 // 对称二叉树
 // 递归法
+// 注意判断 val 是否相等
 const isSymmetric = function (root) {
   const compare = (l, r) => {
     // 首先排除空节点的情况
@@ -70,4 +71,46 @@ const isSymmetric = function (root) {
     return compare(l.left, r.right) && compare(l.right, r.left)
   }
   return compare(root.left, root.right)
+}
+
+// LC.100 https://leetcode-cn.com/problems/same-tree/
+// 相同的树
+// 递归法
+// 注意判断 val 是否相等
+const isSameTree = function (p, q) {
+  // 判断两棵树节点是否相同
+  // 首先排除空节点的情况
+  if (!p || !q)
+    return p === q
+  // 再排除数值不相同的情况
+  if (p.val !== q.val)
+    return false
+  // 此时就是：两棵树根节点都不为空，且数值相同的情况
+  // 递归判断其他节点是否相同
+  return isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
+}
+
+// LC.572 https://leetcode-cn.com/problems/subtree-of-another-tree/
+// 另一棵树的子树
+// 关键使用上一题的 isSameTree 函数
+const isSubtree = function (root, subRoot) {
+  const isSameTree = function (p, q) {
+    // 判断两棵树节点是否相同
+    // 首先排除空节点的情况
+    if (!p || !q)
+      return p === q
+    // 再排除数值不相同的情况
+    if (p.val !== q.val)
+      return false
+    // 此时就是：两棵树根节点都不为空，且数值相同的情况
+    // 递归判断其他节点是否相同
+    return isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
+  }
+  if (!root)
+    return !subRoot
+  // 判断以 root 为根的二叉树是否和 subRoot 相同
+  if (isSameTree(root, subRoot))
+    return true
+  // 递归去左右子树中判断是否有和 subRoot 相同的子树（注意此处是或）
+  return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot)
 }

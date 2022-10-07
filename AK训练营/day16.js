@@ -5,6 +5,17 @@ const maxDepth = function (root) {
   return root ? 1 + Math.max(maxDepth(root.left), maxDepth(root.right)) : 0
 }
 
+// LC.559 https://leetcode-cn.com/problems/maximum-depth-of-n-ary-tree/
+// N叉树的最大深度
+const maxDepth = function (root) {
+  if (!root)
+    return 0
+  let maxChildDepth = 0
+  for (const node of root.children)
+    maxChildDepth = Math.max(maxChildDepth, maxDepth(node))
+  return maxChildDepth + 1
+}
+
 // LC.111 https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/
 // 二叉树的最小深度
 // 递归法
