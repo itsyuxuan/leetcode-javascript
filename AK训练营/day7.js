@@ -80,7 +80,6 @@ const threeSum = function (nums) {
 console.log(threeSum([-1, 0, 1, 2, -1, -4]))
 
 // LC.18 https://leetcode-cn.com/problems/4sum/
-// 对比三数之和，不需要剪枝操作 if (nums[i] > target) break，因为四数之和的 target 可以是负数
 // 时间复杂度: O(n^3)
 // 空间复杂度: O(logn) 额外的排序的空间复杂度
 const fourSum = function (nums, target) {
@@ -90,11 +89,12 @@ const fourSum = function (nums, target) {
   const res = []
   nums.sort((a, b) => a - b)
   for (let a = 0; a < nums.length - 3; a++) {
+    // 对比三数之和，不需要剪枝操作 if (nums[i] > target) break，因为四数之和的 target 可以是负数
     // 去重 a
     if (a > 0 && nums[a - 1] === nums[a])
       continue
     for (let b = a + 1; b < nums.length - 2; b++) {
-      // 去重 b
+      // 去重 b，注意此处去重的前提条件是 b > a + 1
       if (b > a + 1 && nums[b - 1] === nums[b])
         continue
       let c = b + 1
