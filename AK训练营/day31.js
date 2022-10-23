@@ -33,3 +33,15 @@ const wiggleMaxLength = function (nums) {
   }
   return res
 }
+
+// LC.53 https://leetcode-cn.com/problems/maximum-subarray/
+// 最大子序和
+const maxSubArray = function (nums) {
+  const dp = [nums[0]]
+  let res = dp[0]
+  for (let i = 1; i < nums.length; i++) {
+    dp[i] = Math.max(nums[i], nums[i] + dp[i - 1])
+    res = Math.max(res, dp[i])
+  }
+  return res
+}
