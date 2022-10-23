@@ -36,12 +36,29 @@ const wiggleMaxLength = function (nums) {
 
 // LC.53 https://leetcode-cn.com/problems/maximum-subarray/
 // 最大子序和
+// 动态规划
 const maxSubArray = function (nums) {
   const dp = [nums[0]]
   let res = dp[0]
   for (let i = 1; i < nums.length; i++) {
     dp[i] = Math.max(nums[i], nums[i] + dp[i - 1])
     res = Math.max(res, dp[i])
+  }
+  return res
+}
+
+// LC.122 https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/
+// 买卖股票的最佳时机 II
+// 贪心算法
+// 局部最优：收集每天的正利润 => 全局最优：求得最大利润
+const maxProfit = function (prices) {
+  let res = 0
+  if (prices.length === 1)
+    return res
+  for (let i = 1; i < prices.length; i++) {
+    const profit = prices[i] - prices[i - 1]
+    if (profit > 0)
+      res += profit
   }
   return res
 }
