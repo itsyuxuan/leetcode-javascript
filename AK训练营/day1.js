@@ -1,5 +1,6 @@
 // LC.704 https://leetcode.cn/problems/binary-search/
 // 采用左闭右闭区间 [left, right] 的二分法，才有 mid + 1 和 mid - 1 的对称操作
+// 注意 while 循环的条件是 left <= right
 // 注意 JavaScript 的除法会直接计算到小数，计算商要用 Math.floor() 方法
 // 时间复杂度：O(logn)
 // 空间复杂度：O(1)

@@ -6,20 +6,16 @@
 const sortedSquares = function (nums) {
   let i = 0
   let j = nums.length - 1
-  let p = j
   const res = []
   while (i <= j) {
-    const i2 = nums[i] * nums[i]
-    const j2 = nums[j] * nums[j]
-    if (i2 < j2) {
-      res[p] = j2
+    if (Math.abs(nums[i]) <= Math.abs(nums[j])) {
+      res.unshift(nums[j] * nums[j])
       j--
     }
     else {
-      res[p] = i2
+      res.unshift(nums[i] * nums[i])
       i++
     }
-    p--
   }
   return res
 }
